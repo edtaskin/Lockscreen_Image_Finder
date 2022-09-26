@@ -2,7 +2,6 @@ from getpass import getpass
 from re import ASCII
 import sys, pickle, os, shutil, ctypes, getpass
 from pathlib import Path
-from tkinter import image_names
 from PIL import Image
 
 ASCII_ART = """

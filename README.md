@@ -1,7 +1,7 @@
 # Lockscreen-Image-Finder
 Finds Windows Lockscreen Images from the File Explorer and copies to given location and if commanded can set the image directly as background.
 
-# How to execute the program?
+### How to execute the program?
 -Download and and save the source folder.
 
 -Open the command line from the source folder' path.

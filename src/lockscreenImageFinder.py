@@ -46,6 +46,7 @@ def start():
 
 def getImages():
     global image_count
+    image_count = 0 
     print("save_path: %s"%save_path)
 
     src_path = rf"C:\Users\{getpass.getuser()}\AppData\Local\Packages\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\LocalState\Assets"
@@ -57,24 +58,24 @@ def getImages():
         os.mkdir(destination_path)
 
     for file in os.listdir(src_path):
-        shutil.copy2(file, destination_path)
+        with Image.open(file) as img:
+            width, height = img.size
+        if width == 1920 and height == 1080:
+            image_count += 1
+            shutil.copy2(file, destination_path)
 
     os.chdir(destination_path)
 
-    image_count = 0
+    image_index = 0 
     for file in os.listdir():
-        with Image.open(file) as img:
-                width, height = img.size
-        if width != 1920 or height != 1080:
-            os.remove(file)
-        else:
-            image_count += 1
+        image_index += 1
+        if "wallpaper" not in os.path.basename(file):
             while True:
                 try:
-                    os.rename(file, f"wallpaper{image_count}.jpg")
+                    os.rename(file, f"wallpaper{image_index}.jpg")
                     break;
                 except FileExistsError:
-                    image_count += 1
+                    image_index += 1
 
     print(f"FINISHED: {image_count} images found and copied to target location.\n")
 
@@ -107,7 +108,8 @@ background_num = 1
 while True:
     command = input("Enter a command: ")
     if command == "-start":
-        start()
+        if (save_path == None or os.getcwd() != os.path.abspath(save_path) + r"\LockscreenWallpapers"):
+            start()
         getImages()
     elif command == "-change":
         changeSavePath()

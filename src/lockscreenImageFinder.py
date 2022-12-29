@@ -44,7 +44,7 @@ def start():
         with open(filename, "wb") as f:
             pickle.dump(save_path, f)
 
-#TODO Exception handling
+
 def getImages():
     global image_count
     print("save_path: %s"%save_path)

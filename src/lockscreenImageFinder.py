@@ -70,7 +70,12 @@ def getImages():
             os.remove(file)
         else:
             image_count += 1
-            os.rename(file, f"wallpaper{image_count}.jpg")
+            while True:
+                try:
+                    os.rename(file, f"wallpaper{image_count}.jpg")
+                    break;
+                except FileExistsError:
+                    image_count += 1
 
     print(f"FINISHED: {image_count} images found and copied to target location.\n")
 

@@ -39,7 +39,6 @@ def start():
         print("Where to store the finded images?")
         save_path = input("Write 'desktop' for desktop or give a specific path to save found images: ")
         if save_path == "desktop":
-            print("here")
             save_path = rf"C:\Users\{getpass.getuser()}\Desktop"
         with open(filename, "wb") as f:
             pickle.dump(save_path, f)

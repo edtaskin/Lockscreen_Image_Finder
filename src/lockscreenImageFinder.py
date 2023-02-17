@@ -4,18 +4,6 @@ import sys, pickle, os, shutil, ctypes, getpass
 from pathlib import Path
 from PIL import Image
 
-ASCII_ART = """
-
- __          ___           _                     _                _                                   _____                              ______ _           _            
- \ \        / (_)         | |                   | |              | |                                 |_   _|                            |  ____(_)         | |           
-  \ \  /\  / / _ _ __   __| | _____      _____  | |     ___   ___| | _____  ___ _ __ ___  ___ _ __     | |  _ __ ___   __ _  __ _  ___  | |__   _ _ __   __| | ___ _ __  
-   \ \/  \/ / | | '_ \ / _` |/ _ \ \ /\ / / __| | |    / _ \ / __| |/ / __|/ __| '__/ _ \/ _ \ '_ \    | | | '_ ` _ \ / _` |/ _` |/ _ \ |  __| | | '_ \ / _` |/ _ \ '__| 
-    \  /\  /  | | | | | (_| | (_) \ V  V /\__ \ | |___| (_) | (__|   <\__ \ (__| | |  __/  __/ | | |  _| |_| | | | | | (_| | (_| |  __/ | |    | | | | | (_| |  __/ |    
-     \/  \/   |_|_| |_|\__,_|\___/ \_/\_/ |___/ |______\___/ \___|_|\_\___/\___|_|  \___|\___|_| |_| |_____|_| |_| |_|\__,_|\__, |\___| |_|    |_|_| |_|\__,_|\___|_|    
-                                                                                                                             __/ |                                       
-                                                                                                                            |___/                                        
-
-"""
 save_path = None
 filename = "path.pickle"
 image_count = 0
@@ -36,10 +24,10 @@ def start():
         f.close()
 
     if not save_path:
-        print("Where to store the finded images?")
+        print("FIRST USE CONFIG: Where to store the found images?")
         save_path = input("Write 'desktop' for desktop or give a specific path to save found images: ")
-        if save_path == "desktop":
-            save_path = rf"C:\Users\{getpass.getuser()}\Desktop"
+        # if save_path == "desktop":
+        #     save_path = rf"C:\Users\{getpass.getuser()}\Desktop"
         with open(filename, "wb") as f:
             pickle.dump(save_path, f)
 
@@ -99,9 +87,7 @@ def setBackground(num):
             ctypes.windll.user32.SystemParametersInfoW(20, 0, os.path.abspath(file), 0)
     print(f"FINISHED: Wallpaper {num} is set as background.\n")
 
-
-print(ASCII_ART)
-print("Welcome to Windows Lockscreen Wallpaper Finder!")
+print("Welcome to Windows Lockscreen Image Finder!")
 print("Write '-start' to execute the program or '-commands' to see the commands list.")
 
 background_num = 1

@@ -108,5 +108,5 @@ while True:
             setBackground(background_num)
             background_num += 1
     elif command == "-exit":
-        break
+        sys.exit()
 

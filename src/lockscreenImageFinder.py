@@ -25,7 +25,7 @@ def start():
 
     if not save_path:
         print("FIRST USE CONFIG: Where to store the found images?")
-        save_path = input("Write 'desktop' for desktop or give a specific path to save found images: ")
+        save_path = input("Give a specific path to save found images: ")
         # if save_path == "desktop":
         #     save_path = rf"C:\Users\{getpass.getuser()}\Desktop"
         with open(filename, "wb") as f:

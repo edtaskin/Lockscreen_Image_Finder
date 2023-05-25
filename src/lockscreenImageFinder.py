@@ -11,6 +11,7 @@ image_count = 0
 COMMANDS = """-start: to execute the program\n
 -change: to change the save directory\n
 -setBackground: to set image as background (If it is not the intended image use -setBackground again to set the next image as background.)\n
+-displaySavePath: to get the current save path\n
 -commands: to display commands list\n
 -exit: to terminate the program"""
 
@@ -26,8 +27,6 @@ def start():
     if not save_path:
         print("FIRST USE CONFIG: Where to store the found images?")
         save_path = input("Give a specific path to save found images: ")
-        # if save_path == "desktop":
-        #     save_path = rf"C:\Users\{getpass.getuser()}\Desktop"
         with open(filename, "wb") as f:
             pickle.dump(save_path, f)
 
@@ -107,6 +106,8 @@ while True:
         else:    
             setBackground(background_num)
             background_num += 1
+    elif command == "-displaySavePath":
+        print(f"Save path: {save_path}")
     elif command == "-exit":
         sys.exit()
 

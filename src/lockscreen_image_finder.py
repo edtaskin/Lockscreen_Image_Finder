@@ -1,12 +1,12 @@
 from getpass import getpass
 import sys, os, shutil, getpass
-from pathlib import Path
 from PIL import Image
 import re
+import locale, ctypes
+import json
 
 save_path = None
 image_count = 0
-
 
 def getImages():
     global image_count
@@ -51,13 +51,29 @@ def assert_save_path():
         print("ERROR: Given path is not valid. Try another path or use the default path by not specifying a directory.")
         sys.exit()
 
+def get_system_lang():
+    windll = ctypes.windll.kernel32
+    print(locale.windows_locale[windll.GetUserDefaultUILanguage()]) #TODO DEL
+    return locale.windows_locale[windll.GetUserDefaultUILanguage()]
 
-if sys.argv[1] == "--help":
-    print("Usage: python3 lockscreen-image-finder.py [DIRECTORY] (optional)")
-elif re.search("*[/\]*[/\]*", sys.argv[1]):
-    assert_save_path()
-    save_path = sys.argv[1]
+def get_desktop_path(lang):
+    print(os.path.exists(r"..\translations.json")) # TODO
+    with open(r"..\translations.json", "r", encoding="utf-8") as file:
+        translations = json.load(file)
+    print(translations.get(lang))
+    return os.path.join(os.path.join(os.environ['USERPROFILE']), translations.get(lang))
 
+if len(sys.argv) == 1:
+    lang = get_system_lang()
+    save_path = get_desktop_path(lang)
+    getImages()
 else:
-    print("Invalid option.\nTry 'python3 lockscreen-image-finder.py --help' for more information.")
+    if sys.argv[1] == "--help":
+        print("Usage: python3 lockscreen-image-finder.py [DIRECTORY] (optional)")
+    elif re.search(r"([a-zA-Z]:\\)?(?:[\w]+\\)+[\w]+", sys.argv[1]):
+        save_path = sys.argv[1]
+        assert_save_path()
+        getImages()
+    else:
+        print("Invalid option.\nTry 'python3 lockscreen-image-finder.py --help' for more information.")
 

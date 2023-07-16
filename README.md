@@ -1,4 +1,4 @@
-# Lockscreen Image Finder
+# Windows Lockscreen Image Finder
 This is a script that finds the daily-changing Windows lockscreen images from the file system and copies them to a directory.
 
 ### Prerequisites

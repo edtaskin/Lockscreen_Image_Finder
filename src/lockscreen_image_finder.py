@@ -2,7 +2,6 @@ from getpass import getpass
 import sys, os, shutil, getpass
 from PIL import Image
 import re
-import argparse
 
 save_path = None
 image_count = 0

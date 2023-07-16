@@ -2,6 +2,7 @@ from getpass import getpass
 import sys, os, shutil, getpass
 from PIL import Image
 import re
+import argparse
 
 save_path = None
 image_count = 0
@@ -49,12 +50,23 @@ def assert_save_path():
         print("ERROR: Given path is not valid. Try another path or use the default path by not specifying a directory.")
         sys.exit()
 
+def print_help():
+    print("""
+usage: python3 path_to_lockscreen_image_finder.py [-h] [save_dir]
+
+Copies the current Windows lockscreen wallpaper stack from the file system to the specified directory or to Desktop by default.
+
+optional arguments:
+-h, --help  show help message and exit
+save_dir    save the found images to this directory instead of the default one
+          """)
+
 if len(sys.argv) == 1:
     save_path = os.path.join(os.environ['USERPROFILE'], "Desktop") # TODO Simply change "Desktop" to its translation in your system language
     getImages()
 else:
-    if sys.argv[1] == "--help":
-        print("Usage: python3 lockscreen-image-finder.py [DIRECTORY] (optional)")
+    if sys.argv[1] == "--help" or sys.argv[1] == "-h":
+        print_help()
     elif re.search(r"([a-zA-Z]:\\)?(?:[\w]+\\)+[\w]+", sys.argv[1]):
         save_path = sys.argv[1]
         if save_path[-len(r"\LockscreenWallpapers"):] == r"\LockscreenWallpapers":

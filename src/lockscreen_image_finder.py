@@ -22,7 +22,7 @@ def getImages():
     for file in os.listdir(src_path):
         with Image.open(file) as img:
             width, height = img.size
-        if width == 1920 and height == 1080:
+        if width > height:
             image_count += 1
             shutil.copy2(file, destination_path)
 

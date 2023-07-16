@@ -2,8 +2,6 @@ from getpass import getpass
 import sys, os, shutil, getpass
 from PIL import Image
 import re
-import locale, ctypes
-import json
 
 save_path = None
 image_count = 0
@@ -15,7 +13,7 @@ def getImages():
 
     src_path = rf"C:\Users\{getpass.getuser()}\AppData\Local\Packages\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\LocalState\Assets"
     os.chdir(src_path)
-
+    print(f"src path: {src_path}")
     destination_path = os.path.join(save_path, "LockscreenWallpapers")
 
     if not os.path.exists(destination_path):
@@ -51,27 +49,16 @@ def assert_save_path():
         print("ERROR: Given path is not valid. Try another path or use the default path by not specifying a directory.")
         sys.exit()
 
-def get_system_lang():
-    windll = ctypes.windll.kernel32
-    print(locale.windows_locale[windll.GetUserDefaultUILanguage()]) #TODO DEL
-    return locale.windows_locale[windll.GetUserDefaultUILanguage()]
-
-def get_desktop_path(lang):
-    print(os.path.exists(r"..\translations.json")) # TODO
-    with open(r"..\translations.json", "r", encoding="utf-8") as file:
-        translations = json.load(file)
-    print(translations.get(lang))
-    return os.path.join(os.path.join(os.environ['USERPROFILE']), translations.get(lang))
-
 if len(sys.argv) == 1:
-    lang = get_system_lang()
-    save_path = get_desktop_path(lang)
+    save_path = os.path.join(os.environ['USERPROFILE'], "Desktop") # TODO Simply change "Desktop" to its translation in your system language
     getImages()
 else:
     if sys.argv[1] == "--help":
         print("Usage: python3 lockscreen-image-finder.py [DIRECTORY] (optional)")
     elif re.search(r"([a-zA-Z]:\\)?(?:[\w]+\\)+[\w]+", sys.argv[1]):
         save_path = sys.argv[1]
+        if save_path[-len(r"\LockscreenWallpapers"):] == r"\LockscreenWallpapers":
+            save_path = save_path[:-len(r"\LockscreenWallpapers")]
         assert_save_path()
         getImages()
     else:

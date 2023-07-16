@@ -17,4 +17,4 @@ Simply change "Desktop" at line 65 of lockscreen_image_finder.py to be the trans
 <code>save_path = os.path.join(os.environ['USERPROFILE'], "Desktop") # TODO Simply change "Desktop" to its translation in your system language </code>
 
 #### Example
-<code>save_path = os.path.join(os.environ['USERPROFILE'], "Masaüstü") # TODO "Desktop" changed to "Masaüstü" for Turkish system language</code>
+<code>save_path = os.path.join(os.environ['USERPROFILE'], "Masaüstü") # "Desktop" changed to "Masaüstü" for Turkish system language</code>

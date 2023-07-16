@@ -6,8 +6,7 @@ This is a script that finds the daily-changing Windows lockscreen images from th
 - Python 3.x
 
 ### Usage
-To run the script use the following command: <code>python3 lockscreenImageFinder.py</code>
-or <code>python3 lockscreenImageFinder.py save_dir</code> if you want to specify a custom save directory for the images.
+To run the script use the following command: <code>python3 lockscreenImageFinder.py</code> or <code>python3 lockscreenImageFinder.py save_dir</code> if you want to specify a custom save directory for the images.
 
 #### Optional arguments
 - save_dir: to change the save directory from the default, which is the Desktop 

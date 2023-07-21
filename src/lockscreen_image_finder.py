@@ -9,11 +9,9 @@ image_count = 0
 def getImages():
     global image_count
     image_count = 0 
-    print("save_path: %s"%save_path)
 
     src_path = rf"C:\Users\{getpass.getuser()}\AppData\Local\Packages\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\LocalState\Assets"
     os.chdir(src_path)
-    print(f"src path: {src_path}")
     destination_path = os.path.join(save_path, "LockscreenWallpapers")
 
     if not os.path.exists(destination_path):
